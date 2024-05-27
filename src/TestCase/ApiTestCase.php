@@ -24,11 +24,11 @@ class ApiTestCase extends WebTestCase
 
     protected function tearDown(): void
     {
-        $this->client = null;
-
         parent::tearDown();
 
         $this->tearDownTraits();
+
+        $this->client = null;
     }
 
     protected function setUpTraits(): void
