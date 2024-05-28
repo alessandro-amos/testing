@@ -24,9 +24,9 @@ class ApiTestCase extends WebTestCase
 
     protected function tearDown(): void
     {
-        parent::tearDown();
-
         $this->tearDownTraits();
+
+        parent::tearDown();
 
         $this->client = null;
     }
