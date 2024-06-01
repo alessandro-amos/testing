@@ -67,4 +67,9 @@ trait JsonAsserts
 
         return $this;
     }
+
+    public function assertJsonResponse(): AssertableJsonString
+    {
+        return $this->decodeResponseJson();
+    }
 }
