@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace  Alms\Testing\Database\Traits;
+namespace  Alms\Testing\Trait;
 
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\DataFixtures\Purger\ORMPurgerInterface;

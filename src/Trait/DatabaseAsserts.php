@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace  Alms\Testing\Database\Traits;
+namespace Alms\Testing\Trait;
 
-use  Alms\Testing\Database\EntityAssertion;
+use Alms\Testing\Database\EntityAssertion;
 use function is_object;
 
 trait DatabaseAsserts

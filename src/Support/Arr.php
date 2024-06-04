@@ -4,6 +4,43 @@ namespace Alms\Testing\Support;
 
 class Arr
 {
+    /**
+     * Get an item from an array using "dot" notation.
+     *
+     * @param  \ArrayAccess|array  $array
+     * @param  string|int|null  $key
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public static function get($array, $key, $default = null): mixed
+    {
+        if (! static::accessible($array)) {
+            return Util::value($default);
+        }
+
+        if (is_null($key)) {
+            return $array;
+        }
+
+        if (static::exists($array, $key)) {
+            return $array[$key];
+        }
+
+        if (! str_contains($key, '.')) {
+            return $array[$key] ?? Util::value($default);
+        }
+
+        foreach (explode('.', $key) as $segment) {
+            if (static::accessible($array) && static::exists($array, $segment)) {
+                $array = $array[$segment];
+            } else {
+                return Util::value($default);
+            }
+        }
+
+        return $array;
+    }
+    
     public static function collapse(array $array): array
     {
         $results = [];
@@ -84,14 +121,14 @@ class Arr
             {
                 if (!is_iterable($target))
                 {
-                    return value($default);
+                    return Util::value($default);
                 }
 
                 $result = [];
 
                 foreach ($target as $item)
                 {
-                    $result[] = data_get($item, $key);
+                    $result[] = Arr::data_get($item, $key);
                 }
 
                 return in_array('*', $key) ? Arr::collapse($result) : $result;

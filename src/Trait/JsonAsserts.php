@@ -3,36 +3,11 @@
 namespace Alms\Testing\Trait;
 
 use Alms\Testing\AssertableJsonString;
-use Alms\Testing\Fluent\AssertableJson;
-use Alms\Testing\Support\Arr;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Response;
 
 trait JsonAsserts
 {
-    public function assertJsonValue(array|\Closure $value, $strict = false): static
-    {
-        $json = $this->decodeResponseJson();
-
-        if (is_array($value))
-        {
-            $json->assertSubset($value, $strict);
-
-            return $this;
-        }
-
-        $assert = AssertableJson::fromAssertableJsonString($json);
-
-        $value($assert);
-
-        if (Arr::isAssoc($assert->toArray()))
-        {
-            $assert->interacted();
-        }
-
-        return $this;
-    }
-
     private function decodeResponseJson(): AssertableJsonString
     {
         $content = $this->getContent();

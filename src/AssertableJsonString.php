@@ -8,30 +8,29 @@ use Alms\Testing\Support\Str;
 use ArrayAccess;
 use Closure;
 use Countable;
-use Illuminate\Contracts\Support\Jsonable;
 use JsonSerializable;
 
 class AssertableJsonString implements ArrayAccess, Countable
 {
-    public JsonSerializable|Jsonable|string|array $json;
+    public JsonSerializable|string|array $json;
 
     protected array|null $decoded;
 
-    public function __construct(array|string|JsonSerializable $jsonable)
+    public function __construct(array|string|JsonSerializable $value)
     {
-        $this->json = $jsonable;
+        $this->json = $value;
 
-        if ($jsonable instanceof JsonSerializable)
+        if ($value instanceof JsonSerializable)
         {
-            $this->decoded = $jsonable->jsonSerialize();
+            $this->decoded = $value->jsonSerialize();
         }
-        elseif (is_array($jsonable))
+        elseif (is_array($value))
         {
-            $this->decoded = $jsonable;
+            $this->decoded = $value;
         }
         else
         {
-            $this->decoded = json_decode($jsonable, true);
+            $this->decoded = json_decode($value, true);
         }
     }
 
@@ -58,7 +57,7 @@ class AssertableJsonString implements ArrayAccess, Countable
         if (!is_null($key))
         {
             PHPUnit::assertCount(
-                $count, data_get($this->decoded, $key),
+                $count, Arr::data_get($this->decoded, $key),
                 "Failed to assert that the response count matched the expected {$count}"
             );
 

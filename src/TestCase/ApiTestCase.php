@@ -2,15 +2,14 @@
 
 namespace Alms\Testing\TestCase;
 
-use PHPUnit\Framework\Attributes\AfterClass;
-use PHPUnit\Framework\Attributes\BeforeClass;
+use Alms\Testing\Trait\Helper;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Contracts\Service\ResetInterface;
 
 class ApiTestCase extends WebTestCase
 {
+    use Helper;
+
     protected KernelBrowser|null $client = null;
 
     public function setUp(): void

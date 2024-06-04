@@ -27,9 +27,16 @@ class EntityAssertion
         protected EntityManagerInterface $em,
     )
     {
-        $this->query = $em->createQueryBuilder()
-            ->select('COUNT(*)')
-            ->from($entity, 'e');
+        $this->query = $this->em->createQueryBuilder()
+            ->select('COUNT(*)');
+    }
+
+    public function query(Closure $closure): self
+    {
+        $self = clone $this;
+        $closure($self->query);
+
+        return $self;
     }
 
     public function withFilter(string $filter): self
@@ -39,15 +46,6 @@ class EntityAssertion
 
         return $self;
     }
-
-    public function where(mixed $where): self
-    {
-        $self = clone $this;
-        $self->query->where($where);
-
-        return $self;
-    }
-
 
     public function withoutFilter(string $filter): self
     {
