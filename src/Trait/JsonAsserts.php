@@ -61,13 +61,6 @@ trait JsonAsserts
         return $response->getContent();
     }
 
-    public function assertJsonStructure(array $structure = null): static
-    {
-        $this->decodeResponseJson()->assertStructure($structure);
-
-        return $this;
-    }
-
     public function assertJsonResponse(): AssertableJsonString
     {
         return $this->decodeResponseJson();

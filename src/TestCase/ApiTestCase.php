@@ -15,7 +15,7 @@ class ApiTestCase extends WebTestCase
 
     public function setUp(): void
     {
-        $this->client = static::createClient(['debug' => false]);
+        $this->client = static::createClient();
 
         parent::setUp();
 

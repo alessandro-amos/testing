@@ -69,7 +69,7 @@ class AssertableJson implements Arrayable
      * @param  string|null  $key
      * @return mixed
      */
-    protected function prop(string $key = null)
+    protected function prop(string $key = null): mixed
     {
         return Arr::get($this->props, $key);
     }
